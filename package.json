@@ -1,0 +1,40 @@
+{
+  "name": "react-match-height",
+  "description": "equalize elements's height",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack-dev-server --config=./webpack.config.js",
+    "build": "webpack -p --config=./webpack.config.js",
+    "prod": "http-server ./public",
+    "lint": "eslint 'src/**/*.tsx'",
+    "lint-fix": "eslint --fix 'src/**/*.tsx'"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.150",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "html-webpack-plugin": "^3.2.0",
+    "prettier": "^1.19.1",
+    "terser-webpack-plugin": "^2.3.5",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.3",
+    "webpack": "^4.40.2",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.1"
+  }
+}
