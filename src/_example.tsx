@@ -61,7 +61,7 @@ const App = () => {
             <p>item {i + 1}</p>
             <div
               className={`${targetClassName} content`}
-              style={{ backgroundColor: "red" }}
+              style={{ backgroundColor: "#00A0B0" }}
               dangerouslySetInnerHTML={{ __html: d }}
             />
           </div>
