@@ -32,7 +32,7 @@ export interface UseHeightEqualParams {
  */
 export const useHeightEqual = (params: UseHeightEqualParams) => {
   const { ref, targetClassName, column } = params;
-  const exec = () => {
+  const execHeightEqual = () => {
     const target = ref.current;
     const elements:
       | NodeListOf<HTMLElement>
@@ -57,12 +57,14 @@ export const useHeightEqual = (params: UseHeightEqualParams) => {
   };
 
   React.useEffect(() => {
-    exec();
+    execHeightEqual();
 
-    window.addEventListener("resize", exec);
+    window.addEventListener("resize", execHeightEqual);
 
     return () => {
-      window.removeEventListener("resize", exec);
+      window.removeEventListener("resize", execHeightEqual);
     };
   });
+
+  return { execHeightEqual };
 };
