@@ -1,5 +1,6 @@
-import * as React from "react";
+import React from "react";
 import { render } from "react-dom";
+import "./useHeightEqual";
 import { useHeightEqual } from "./useHeightEqual";
 
 const rootEl = document.getElementById("root");
@@ -10,7 +11,7 @@ const contentData = [
   "This is a wider card with supporting text below as a natural lead-in to additional content.<br /> This content is a little bit longer.",
   "Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br />Repudiandae amet laudantium soluta porro architecto provident nisi, <br />fuga suscipit nesciunt unde esse itaque minus voluptatibus, quam beatae, fugit dolores quod ab!",
   "JavaScript library to equalize elements's height",
-  "This is a wider card with supporting text below as a natural lead-in to additional content.<br /> This content is a little bit longer.",
+  "This is a wider card with supporting text below as a natural lead-in to additional content.<br /> This content is a little bit longeaar.",
   "Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br />Repudiandae amet laudantium soluta porro architecto provident nisi, <br />fuga suscipit nesciunt unde esse itaque minus voluptatibus, quam beatae, fugit dolores quod ab!",
   "JavaScript library to equalize elements's height",
 ];

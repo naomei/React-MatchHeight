@@ -1,6 +1,12 @@
 import React from "react";
 import _ from "lodash";
 
+export interface UseHeightEqualParams {
+  ref: React.RefObject<HTMLElement>;
+  targetClassName: string;
+  column: number;
+}
+
 /**
  * elementグループ内から高さが最大のものを返す
  */
@@ -11,11 +17,7 @@ const getGroupHeight = (group: HTMLElement[]) => {
     .value();
 };
 
-export interface UseHeightEqualParams {
-  ref: React.RefObject<HTMLElement>;
-  targetClassName: string;
-  column: number;
-}
+console.log("aaaa");
 
 /**
  * useHeightEqual
@@ -41,6 +43,8 @@ export const useHeightEqual = (
     }
 
     const groups = _.chunk(elements, column);
+    console.log(groups);
+
     const heightList: number[] = [];
 
     _.each(groups, (group) => {
