@@ -1,5 +1,25 @@
 import React from "react";
-import _ from "lodash";
+
+/**
+ * getGroupHeight
+ * * returns the one with the highest height from element group
+ */
+const getGroupHeight = (group: HTMLElement[]) => {
+  const arr = group.map((d) => d.getBoundingClientRect().height);
+
+  return Math.max(...arr);
+};
+
+/**
+ * chunkArray
+ * * array of elements split into groups the length of size
+ */
+const chunkArray = <T extends any[]>(arr: T, size: number): T[] => {
+  return arr.reduce(
+    (newarr, _, i) => (i % size ? newarr : [...newarr, arr.slice(i, i + size)]),
+    [] as T[][]
+  );
+};
 
 export interface UseHeightEqualParams {
   ref: React.RefObject<HTMLElement>;
@@ -8,69 +28,41 @@ export interface UseHeightEqualParams {
 }
 
 /**
- * elementグループ内から高さが最大のものを返す
- */
-const getGroupHeight = (group: HTMLElement[]) => {
-  return _.chain(group)
-    .map((d) => d.getBoundingClientRect().height)
-    .max()
-    .value();
-};
-
-console.log("aaaa");
-
-/**
  * useHeightEqual
  */
-export const useHeightEqual = (
-  ref: React.RefObject<HTMLElement>,
-  targetClassName: string,
-  column: number
-) => {
-  const matchHeight = React.useCallback(() => {
+export const useHeightEqual = (params: UseHeightEqualParams) => {
+  const { ref, targetClassName, column } = params;
+  const exec = () => {
     const target = ref.current;
+    const elements:
+      | NodeListOf<HTMLElement>
+      | undefined = target?.querySelectorAll(`.${targetClassName}`);
 
-    if (!target) {
+    if (!target || !elements?.length) {
+      console.error("target or elements is notFound.");
       return;
     }
 
-    const elements = target.querySelectorAll(
-      `.${targetClassName}`
-    ) as NodeListOf<HTMLElement>;
-
-    if (!elements.length) {
-      return;
-    }
-
-    const groups = _.chunk(elements, column);
-    console.log(groups);
-
+    const groups = chunkArray(Array.from(elements), column);
     const heightList: number[] = [];
 
-    _.each(groups, (group) => {
-      // 次update時に古いheightが残るので、瞬間的にautoで初期化する
-      _.each(group, (el) => {
-        el.style.height = "auto";
-      });
-      heightList.push(getGroupHeight(group));
+    // 1. delete the height once
+    // 2. measure the height of the group and collect
+    // 3. set height
+    groups.forEach((d1, i) => {
+      d1.forEach((d2) => (d2.style.height = "auto"));
+      heightList.push(getGroupHeight(d1));
+      d1.forEach((d2) => (d2.style.height = `${heightList[i]}px`));
     });
-    _.each(groups, (group, i) => {
-      _.each(group, (el) => {
-        el.style.height = `${heightList[i]}px`;
-      });
-    });
-  }, [column, ref, targetClassName]);
-
-  const resize = () => {
-    matchHeight();
   };
 
   React.useEffect(() => {
-    matchHeight();
-    window.addEventListener("resize", resize);
+    exec();
+
+    window.addEventListener("resize", exec);
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", exec);
     };
   });
 };
